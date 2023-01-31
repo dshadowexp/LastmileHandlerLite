@@ -1,0 +1,33 @@
+{
+  "name": "lastmilehandlerlite",
+  "version": "1.0.0",
+  "description": "RESTful API to facilitate a system for last mile delivery between courier fleet managers, riders, and customers",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dshadowexp/LastmileHandlerLite.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dshadowexp/LastmileHandlerLite/issues"
+  },
+  "homepage": "https://github.com/dshadowexp/LastmileHandlerLite#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "helmet": "^6.0.1",
+    "mongoose": "^6.9.0",
+    "socket.io": "^4.5.4"
+  },
+  "devDependencies": {
+    "jest": "^29.4.1",
+    "nodemon": "^2.0.20",
+    "supertest": "^6.3.3"
+  }
+}
