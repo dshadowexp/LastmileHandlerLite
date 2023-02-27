@@ -1,0 +1,15 @@
+{
+    "port": 3000,
+    "db": {
+        "url": "mongodb://localhost/lastmile"
+    },
+    "token": "x-auth-token",
+    "email": {
+        "mailtrap": {
+            "host": "smtp.mailtrap.io",
+            "port": 587,
+            "username": "e59619bf3725ea",
+            "password": "b0b2a9de12ec9e"
+        }
+    }
+}
