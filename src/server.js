@@ -6,9 +6,8 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
-
 export const createServer = function() {
-    return app;
+    return server;
 }
 
 export const createSocket = function() {
