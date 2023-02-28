@@ -1,20 +1,43 @@
-import { validateUser } from "../models/user.model.js";
+import _ from "lodash";
+import config from "config";
+
+import { validateCreateUser, validateUser } from "../models/user.model.js";
 import { findUserByEmail } from "../services/user.service.js";
 import { errorResponse, successResponse, validationResponse } from "../utils/responses.js";
-import { initializeUser } from './../services/user.service';
+import { initializeUser } from './../services/user.service.js';
+import { validatePassword } from "../utils/crypt.js";
 
 export const authenticateUserHandler = async (req, res) => {
+    const { error } = validateUser(req.body);
+    if (error) 
+        return res.status(422).send(validationResponse(error.details[0].message));
 
+    let user = await findUserByEmail(req.body.email);
+    if (!user)
+        return res.status(404).send(errorResponse('invalid email or password', 404));
+
+    const isPasswordValid = await validatePassword(req.body.password, user.password);
+    if (!isPasswordValid)
+        return res.status(404).send(errorResponse('invalid email or password', 404));
+
+    const token = user.generateAuthToken();
+    res.status(200).send(
+        successResponse(
+            'Authentication successfull',
+            token,
+            200
+        )
+    );
 }
 
 export const createUserHandler = async (req, res) => {
-    const { error } = validateUser(req.body);
+    const { error } = validateCreateUser(req.body);
     if (error) 
-        return res.status(404).send(validationResponse(error.details[0].message));
+        return res.status(422).send(validationResponse(error.details[0].message));
 
     let user = await findUserByEmail(req.body.email);
     if (user) 
-        return res.status(404).send(errorResponse('user already exists', 404));
+        return res.status(409).send(errorResponse('user already exists', 409));
 
     user = await initializeUser(req.body);
 

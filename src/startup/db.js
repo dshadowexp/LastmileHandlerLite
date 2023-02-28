@@ -6,11 +6,11 @@ const options = {
     useUnifiedTopology: true,
 };
 
-const dbConnect = function() {
+export default function() {
     set('strictQuery', false);
-    connect(`mongodb+srv://${config.get('db.username')}:${config.get('db.password')}@cluster0.dczyixi.mongodb.net/?retryWrites=true&w=majority`, options)
+    const liveURL = `mongodb+srv://${config.get('db.username')}:${config.get('db.password')}@cluster0.dczyixi.mongodb.net/?retryWrites=true&w=majority`;
+    const devURL = "mongodb://localhost/lastmile";
+    connect(liveURL, options)
         .then(() => console.log('Connected to Mongodb'))
         .catch(err => console.log('Error connecting to Mongodb', err));
 }
-
-export default dbConnect;

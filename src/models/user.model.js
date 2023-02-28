@@ -23,6 +23,7 @@ const userSchema = new Schema({
         type: String,
         enum: [...Object.values(userRoleEnums)],
         required: true,
+        default: userRoleEnums.fleet
     }
 })
 
@@ -37,8 +38,17 @@ export const validateUser = function(user) {
     const schema = Joi.object({
         email: Joi.string().min(8).max(256).required(),
         password: Joi.string().min(8).required(),
-        role: Joi.string().required().valid(...Object.values(userRoleEnums)),
     });
 
     return schema.validate(user);
+}
+
+export const validateCreateUser = function(account) {
+    const schema = Joi.object({
+        email: Joi.string().min(8).max(256).required(),
+        password: Joi.string().min(8).required(),
+        name: Joi.string().min(5).max(64).required()
+    });
+
+    return schema.validate(account);
 }

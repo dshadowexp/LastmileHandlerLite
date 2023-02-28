@@ -1,6 +1,6 @@
 import config from "config";
-import { jwt } from 'jsonwebtoken';
-import { errorResponse } from "../utils/responses";
+import jwt from 'jsonwebtoken';
+import { errorResponse } from "../utils/responses.js";
 
 export const authenticationMiddleware = (req, res, next) => {
     const token = req.headers(config.get('token'));

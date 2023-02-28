@@ -6,23 +6,22 @@ const courierSchema = new Schema({
         required: true,
         min: 2,
         max: 124,
-        default: 'courier-firstname',
     },
     lastName: {
         type: String,
         required: true,
         min: 2,
         max: 124,
-        default: 'courier-lastname',
     },
     email: {
         type: String,
         unique: true,
+        required: true,
     },
     phoneNumber: {
         type: String,
         min: 9,
-        max: 11,
+        max: 12,
         required: true,
         unique: true,
     },
@@ -53,12 +52,21 @@ const courierSchema = new Schema({
 
 export const Courier = model('Courier', courierSchema);
 
-export const validateCourier = function(courier) {
+export const validateCreateCourier = function(courier) {
     const schema = Joi.object({
-        firstName: Joi.string().min(2).max(124),
-        lastName: Joi.string().min(2).max(124),
+        firstName: Joi.string().min(2).max(124).required(),
+        lastName: Joi.string().min(2).max(124).required(),
+        email: Joi.email().required(),
+        phoneNumber: Joi.string().min(9).max(12).required(),
+    });
+
+    return schema.validate(courier);
+}
+
+export const validateUpdateCourier = function(courier) {
+    const schema = Joi.object({
         email: Joi.email(),
-        phoneNumber: Joi.string(),
+        phoneNumber: Joi.string().min(9).max(12),
     });
 
     return schema.validate(courier);

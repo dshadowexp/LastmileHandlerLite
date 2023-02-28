@@ -5,19 +5,21 @@ import http from "http";
 import { Server } from "socket.io";
 
 import initializeRoutes from "./routes/index.js";
+import dbConnect from './startup/db.js';
 
 const app = express();
 app.use(helmet());
 app.use(cors());
 app.use(json());
-app.use(urlencoded());
+app.use(urlencoded({ extended: true }));
 
 const server = http.createServer(app);
 const io = new Server(server);
 
 export const createServer = function() {
-    initializeRoutes(server);
-    return server;
+    initializeRoutes(app);
+    dbConnect();
+    return [server, app];
 }
 
 export const createSocket = function() {
