@@ -1,14 +1,18 @@
 import { startSession } from "mongoose";
 import _ from "lodash";
-import { User } from "../models/user.model.js";
+import { User } from "../models/users.model.js";
 import { hashPassword } from '../utils/crypt.js';
-import { createFleet } from './fleet.service.js';
+import { createFleet } from './fleets.service.js';
 
 export const createUser = async (user, session) => {
     let newUser = new User(user);
     newUser.password = await hashPassword(newUser.password);
     await newUser.save({ session });
     return newUser
+}
+
+export const findUserById = async(id) => {
+    return await User.findById(id);
 }
 
 export const findUserByEmail = async (email) => {

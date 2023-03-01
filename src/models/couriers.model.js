@@ -1,4 +1,6 @@
 import { Schema, model } from "mongoose";
+import JoiObjectId from "joi-objectid";
+const myJoiObjectId = JoiObjectId(Joi);
 
 const courierSchema = new Schema({
     firstName: {
@@ -48,7 +50,7 @@ const courierSchema = new Schema({
         ref: 'Fleet',
         required: true,
     }
-});
+}, { timestamps: true });
 
 export const Courier = model('Courier', courierSchema);
 

@@ -1,10 +1,10 @@
 import _ from "lodash";
 import config from "config";
 
-import { validateCreateUser, validateUser } from "../models/user.model.js";
-import { findUserByEmail } from "../services/user.service.js";
+import { validateCreateUser, validateUser } from "../models/users.model.js";
+import { findUserByEmail, findUserById } from "../services/users.service.js";
 import { errorResponse, successResponse, validationResponse } from "../utils/responses.js";
-import { initializeUser } from './../services/user.service.js';
+import { initializeUser } from '../services/users.service.js';
 import { validatePassword } from "../utils/crypt.js";
 
 export const authenticateUserHandler = async (req, res) => {
@@ -12,7 +12,7 @@ export const authenticateUserHandler = async (req, res) => {
     if (error) 
         return res.status(422).send(validationResponse(error.details[0].message));
 
-    let user = await findUserByEmail(req.body.email);
+    const user = await findUserByEmail(req.body.email);
     if (!user)
         return res.status(404).send(errorResponse('invalid email or password', 404));
 
@@ -50,8 +50,4 @@ export const createUserHandler = async (req, res) => {
             201
         )
     );
-}
-
-export const getUserHandler = async (req, res) => {
-
 }

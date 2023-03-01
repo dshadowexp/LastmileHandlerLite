@@ -25,7 +25,7 @@ const userSchema = new Schema({
         required: true,
         default: userRoleEnums.fleet
     }
-})
+}, { timestamps: true })
 
 userSchema.methods.generateAuthToken = function() {
     const data = { id: this._id, role: this.role };

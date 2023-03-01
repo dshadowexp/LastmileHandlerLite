@@ -15,7 +15,7 @@ const fleetSchema = new Schema({
         required: true,
         unique: true,
     }
-});
+}, { timestamps: true });
 
 export const Fleet = model('Fleet', fleetSchema);
 

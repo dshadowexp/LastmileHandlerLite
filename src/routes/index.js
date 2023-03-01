@@ -3,5 +3,5 @@ import error from "../middlewares/error.js";
 
 export default function(app) {
     app.use('/api/users', userRouter);
-    app.use(error);
+    //app.use(error);
 }
