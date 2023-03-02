@@ -60,7 +60,5 @@ export const deleteCourierHandler = async (req, res) => {
     if (!validateObjectId(id))
         return res.status(422).send(validationResponse('invalid request'));
 
-    await deleteCourierById(id);
-
     res.status(200).send(successResponse('success', {}, 200));
 }

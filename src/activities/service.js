@@ -12,6 +12,10 @@ export const createActivity = async (courier, session) => {
     return position;
 }
 
-export const updateActivity = async (position) => {
+export const deleteActivity = async (_id, session) => {
+    await Activity.deleteOne({ _id }).session(session);
+}
+
+export const updateActivity = async (courier, position) => {
 
 }

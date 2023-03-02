@@ -26,8 +26,8 @@ export const updateCourierById = async (_id, courier) => {
     );
 }
 
-export const deleteCourierById = async (id) => {
-    return await Courier.deleteOne(id);
+export const deleteCourierById = async (_id, session) => {
+    await Courier.deleteOne({ _id }).session(session);
 }
 
 export const initializeCourier = async (courier) => {

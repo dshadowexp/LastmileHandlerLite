@@ -13,6 +13,6 @@ router.post('/', authenticationMiddleware, asyncHandler(createCourierHandler));
 
 router.patch('/:id', authenticationMiddleware, updateCourierHandler);
 
-router.delete('/:id', authenticationMiddleware, deleteCourierHandler);
+// router.delete('/:id', authenticationMiddleware, deleteCourierHandler);
 
 export default router;
