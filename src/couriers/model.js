@@ -52,8 +52,8 @@ export const validateCreateCourier = function(courier) {
     const schema = Joi.object({
         firstName: Joi.string().min(2).max(124).required(),
         lastName: Joi.string().min(2).max(124).required(),
-        email: Joi.email().required(),
-        mobile: phoneNumberValidate(),
+        email: Joi.string().email().required(),
+        contact: phoneNumberValidate().required(),
     });
 
     return schema.validate(courier);

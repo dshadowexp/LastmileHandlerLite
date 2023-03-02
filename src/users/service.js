@@ -27,12 +27,10 @@ export const initializeUser = async (userPayload) => {
         
         let user = _.pick(userPayload, ['email', 'password']);
         let fleet = _.pick(userPayload, ['name', 'contact']);
-        console.log(fleet);
 
         newUser = await createUser(user, session);
         fleet.owner = newUser._id;
         newFleet = await createFleet(fleet, session);
-        console.log(newFleet)
 
         await session.commitTransaction();
     } catch (error) {

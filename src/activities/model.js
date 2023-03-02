@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { Joi } from 'joi';
+import Joi from 'joi';
 
 const activitySchema = new Schema({
     courier: {

@@ -7,7 +7,7 @@ const router = Router();
 
 router.get('/:id', getCourierHandler);
 
-router.get('/fleet', authenticationMiddleware, getCouriersForFleetHandler);
+router.get('/fleet/:id', authenticationMiddleware, getCouriersForFleetHandler);
 
 router.post('/', authenticationMiddleware, asyncHandler(createCourierHandler));
 

@@ -16,7 +16,7 @@ export const getCourierHandler = async (req, res) => {
 }
 
 export const getCouriersForFleetHandler = async (req, res) => {
-    const fleetId = req.user._id;
+    const fleetId = req.params.id;
     const couriers = await findCouriersByFleetId(fleetId);
     res.status(200).send(successResponse('Success', couriers, 200));
 }
@@ -26,7 +26,7 @@ export const createCourierHandler = async (req, res) => {
     if (error)
         return res.status(422).send(validationResponse(error.details[0].message));
 
-    req.body.fleet = req.user._id;
+    req.body.fleet = req.user.id;
     let results = await initializeCourier(req.body);
     res.status(202).send(successResponse('created', results, 202));
 }

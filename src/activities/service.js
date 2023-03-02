@@ -1,4 +1,4 @@
-import { Activity } from "../models/activities.model.js";
+import { Activity } from "./model.js";
 
 export const createActivity = async (courier, session) => {
     let position = new Activity({

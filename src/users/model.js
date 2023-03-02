@@ -33,8 +33,8 @@ export const User = model('User', userSchema);
 
 export const validateUser = function(user) {
     const schema = Joi.object({
-        email: Joi.string().min(8).max(256).required(),
-        password: Joi.string().min(8).required(),
+        email: Joi.string().email().min(8).max(256).required(),
+        password: Joi.string().min(8).max(64).required(),
     });
 
     return schema.validate(user);

@@ -1,5 +1,6 @@
 import { startSession } from "mongoose";
 import { Courier } from "./model.js";
+import { createActivity } from './../activities/service.js';
 
 export const findCourierById = async (id) => {
     return await Courier.findById(id);
@@ -33,7 +34,7 @@ export const initializeCourier = async (courier) => {
     let session, newCourier, newActivity;
     try {
         session = await startSession();
-        session.startTransaction()
+        session.startTransaction();
 
         newCourier = await createCourier(courier, session);
         newActivity = await createActivity(newCourier._id, session);
