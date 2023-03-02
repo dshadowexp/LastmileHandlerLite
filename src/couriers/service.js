@@ -47,8 +47,5 @@ export const initializeCourier = async (courier) => {
         await session.endSession()
     }
 
-    return {
-        newCourier, 
-        newActivity
-    }
+    return newCourier;
 }

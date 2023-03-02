@@ -2,6 +2,7 @@ import { validateObjectId } from "./../utils/validations.js";
 import { errorResponse, successResponse, validationResponse } from "../utils/responses.js";
 import { findCourierById, findCouriersByFleetId, initializeCourier, updateCourierById, deleteCourierById } from "./service.js";
 import { validateCreateCourier, validateUpdateCourier } from "./model.js";
+import { findFleetByOwnerId } from "../fleets/service.js";
 
 export const getCourierHandler = async (req, res) => {
     const id = req.params.id;
@@ -26,7 +27,10 @@ export const createCourierHandler = async (req, res) => {
     if (error)
         return res.status(422).send(validationResponse(error.details[0].message));
 
-    req.body.fleet = req.user.id;
+    const fleet = await findFleetByOwnerId(req.user.id);
+
+    req.body.owner = req.user.id;
+    req.body.fleet = fleet._id;
     let results = await initializeCourier(req.body);
     res.status(202).send(successResponse('created', results, 202));
 }
@@ -38,13 +42,13 @@ export const updateCourierHandler = async (req, res) => {
 
     const { error } = validateUpdateCourier(req.body);
     if (error)
-        return res.status(422).send(validationResponse(error.detials[0].message));
+        return res.status(422).send(validationResponse(error.details[0].message));
 
     let courier = await findCourierById(id);
     if (!courier)
         return res.status(404).send(errorResponse('courier not found', 404));
 
-    if (!courier.fleet.equals(req.user._id))
+    if (!courier.owner.equals(req.user.id))
         return res.status(403).send(errorResponse('permission denied', 403));
 
     courier = await updateCourierById(id, req.body);

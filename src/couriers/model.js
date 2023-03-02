@@ -43,6 +43,11 @@ const courierSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Fleet',
         required: true,
+    },
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
     }
 }, { timestamps: true });
 
@@ -61,8 +66,8 @@ export const validateCreateCourier = function(courier) {
 
 export const validateUpdateCourier = function(courier) {
     const schema = Joi.object({
-        email: Joi.email(),
-        mobile: phoneNumberValidate(),
+        email: Joi.string().email(),
+        contact: phoneNumberValidate(),
     });
 
     return schema.validate(courier);
