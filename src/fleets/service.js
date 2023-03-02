@@ -1,4 +1,4 @@
-import { Fleet } from "../models/fleets.model.js";
+import { Fleet } from "./model.js";
 
 export const createFleet = async (fleet, session) => {
     let newFleet = new Fleet(fleet);

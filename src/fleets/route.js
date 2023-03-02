@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { authenticationMiddleware } from './../middlewares/auth.js';
-import { getFleetHandler } from './../controllers/fleets.controller.js';
+import { authenticationMiddleware } from "../middlewares/auth.js";
+import { getFleetHandler } from "./controller.js";
 
 const router = Router();
 

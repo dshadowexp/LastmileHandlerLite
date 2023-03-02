@@ -1,10 +1,9 @@
 import _ from "lodash";
 import config from "config";
 
-import { validateCreateUser, validateUser } from "../models/users.model.js";
-import { findUserByEmail, findUserById } from "../services/users.service.js";
+import { validateCreateUser, validateUser } from "./model.js";
+import { findUserByEmail, initializeUser } from "./service.js";
 import { errorResponse, successResponse, validationResponse } from "../utils/responses.js";
-import { initializeUser } from '../services/users.service.js';
 import { validatePassword } from "../utils/crypt.js";
 
 export const authenticateUserHandler = async (req, res) => {

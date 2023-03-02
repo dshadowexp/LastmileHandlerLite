@@ -5,7 +5,7 @@ import swaggerDocs from './startup/swagger.js';
 const PORT = process.env.PORT || 8000;
 
 const [server, app] = createServer();
-app.use(morgan('tiny'));
+app.use(morgan('dev'));
 
 server.listen(PORT, () => {
     console.log(`listening on http://localhost:${PORT}...`);

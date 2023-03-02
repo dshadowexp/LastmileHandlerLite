@@ -1,8 +1,8 @@
 import { startSession } from "mongoose";
 import _ from "lodash";
-import { User } from "../models/users.model.js";
+import { User } from "./model.js";
 import { hashPassword } from '../utils/crypt.js';
-import { createFleet } from './fleets.service.js';
+import { createFleet } from '../fleets/service.js';
 
 export const createUser = async (user, session) => {
     let newUser = new User(user);
@@ -26,11 +26,13 @@ export const initializeUser = async (userPayload) => {
         session.startTransaction();
         
         let user = _.pick(userPayload, ['email', 'password']);
-        let fleet = _.pick(userPayload, ['name']);
+        let fleet = _.pick(userPayload, ['name', 'contact']);
+        console.log(fleet);
 
         newUser = await createUser(user, session);
         fleet.owner = newUser._id;
         newFleet = await createFleet(fleet, session);
+        console.log(newFleet)
 
         await session.commitTransaction();
     } catch (error) {

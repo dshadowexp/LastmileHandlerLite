@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
-import JoiObjectId from "joi-objectid";
-const myJoiObjectId = JoiObjectId(Joi);
+import Joi from "joi";
+import { phoneNumberSchema, phoneNumberValidate } from "../utils/schemas.js";
 
 const courierSchema = new Schema({
     firstName: {
@@ -20,13 +20,7 @@ const courierSchema = new Schema({
         unique: true,
         required: true,
     },
-    phoneNumber: {
-        type: String,
-        min: 9,
-        max: 12,
-        required: true,
-        unique: true,
-    },
+    contact: phoneNumberSchema,
     trips: {
         type: Number,
         required: true,
@@ -59,7 +53,7 @@ export const validateCreateCourier = function(courier) {
         firstName: Joi.string().min(2).max(124).required(),
         lastName: Joi.string().min(2).max(124).required(),
         email: Joi.email().required(),
-        phoneNumber: Joi.string().min(9).max(12).required(),
+        mobile: phoneNumberValidate(),
     });
 
     return schema.validate(courier);
@@ -68,7 +62,7 @@ export const validateCreateCourier = function(courier) {
 export const validateUpdateCourier = function(courier) {
     const schema = Joi.object({
         email: Joi.email(),
-        phoneNumber: Joi.string().min(9).max(12),
+        mobile: phoneNumberValidate(),
     });
 
     return schema.validate(courier);

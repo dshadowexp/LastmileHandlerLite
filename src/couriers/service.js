@@ -1,6 +1,5 @@
 import { startSession } from "mongoose";
-import { Courier } from "../models/couriers.model.js";
-import { createActivity } from "./activities.service.js";
+import { Courier } from "./model.js";
 
 export const findCourierById = async (id) => {
     return await Courier.findById(id);
