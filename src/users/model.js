@@ -1,17 +1,11 @@
 import { Schema, model } from "mongoose";
 import Joi from "joi";
 import jwt from "jsonwebtoken";
-import { phoneNumberValidate } from "../utils/schemas.js";
+import { emailSchema, phoneNumberValidate } from "../utils/schemas.js";
 import { userRoleEnums } from "../utils/enums.js";
 
 const userSchema = new Schema({
-    email: {
-        type: String,
-        unique: true,
-        required: true,
-        min: 8,
-        max: 256,
-    },
+    email: emailSchema,
     password: {
         type: String,
         required: true,

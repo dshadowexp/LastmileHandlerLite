@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 import Joi from "joi";
-import { phoneNumberSchema } from '../utils/schemas.js';
+import { contactSchema } from '../utils/schemas.js';
 
 const orderSchema = new Schema({
     srcPoint: {
@@ -27,8 +27,8 @@ const orderSchema = new Schema({
         type: String,
         require: true
     },
-    srcContact: phoneNumberSchema,
-    dstContact: phoneNumberSchema,
+    srcContact: contactSchema,
+    dstContact: contactSchema,
     targetFleet: {
         type: Schema.Types.ObjectId,
         ref: 'Fleet'

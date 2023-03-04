@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 import Joi from 'joi';
+import { locationSchema } from './../utils/schemas.js';
 
 const activitySchema = new Schema({
     courier: {
@@ -13,13 +14,7 @@ const activitySchema = new Schema({
         required: true,
         default: false,
     },
-    location: {
-        type: {
-            type: String,
-            enum: ['Point', 'Polygon']
-        },
-        coordinates: [Number] 
-    },
+    location: locationSchema,
 }, { timestamps: true });
 
 export const Activity = model('Activity', activitySchema);
