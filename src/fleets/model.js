@@ -1,16 +1,10 @@
 import { Schema, model } from "mongoose";
 import Joi from "joi";
-import { phoneNumberSchema, phoneNumberValidate } from './../utils/schemas.js';
+import { nameSchema, contactSchema, validateContact } from '../utils/schemas.js';
 
 const fleetSchema = new Schema({
-    name: {
-        type: String,
-        required: true,
-        unique: true,
-        min: 5,
-        max: 64,
-    },
-    contact: phoneNumberSchema,
+    name: nameSchema,
+    contact: contactSchema,
     owner: {
         type: Schema.Types.ObjectId,
         ref: 'User',
@@ -24,7 +18,7 @@ export const Fleet = model('Fleet', fleetSchema);
 export const validateFleet = function(fleet) {
     const schema = Joi.object({
         name: Joi.string().min(5).max(64).required(),
-        contact: phoneNumberValidate()
+        contact: validateContact()
     });
 
     return schema.validate(fleet);

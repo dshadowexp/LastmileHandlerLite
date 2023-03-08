@@ -10,7 +10,7 @@ export const locationSchema = new Schema({
         coordinates: [Number],
         required: true
     },
-    addDesc: {
+    locDesc: {
         type: String
     }
 }, { _id: false });
@@ -60,4 +60,14 @@ export const emailSchema = new Schema({
         min: 8,
         max: 256,
     },
+}, { _id: false });
+
+export const nameSchema = new Schema({
+    name: {
+        type: String,
+        required: true,
+        unique: true,
+        min: 5,
+        max: 64,
+    }
 }, { _id: false });

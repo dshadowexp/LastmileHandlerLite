@@ -1,32 +1,12 @@
 import { Schema, model } from "mongoose";
 import Joi from "joi";
-import { contactSchema } from '../utils/schemas.js';
+import { nameSchema, contactSchema, locationSchema } from '../utils/schemas.js';
 
 const orderSchema = new Schema({
-    srcPoint: {
-        type: {
-            type: String,
-            enum: ['Point']
-        },
-        coordinates: [Number],
-        required: true
-    },
-    dstPoint: {
-       type: {
-            type: String,
-            enum: ['Point']
-        },
-        coordinates: [Number],
-        required: true 
-    },
-    src: {
-        type: String,
-        require: true
-    },
-    dst: {
-        type: String,
-        require: true
-    },
+    srcName: nameSchema,
+    dstName: nameSchema,
+    source: locationSchema,
+    destination: locationSchema,
     srcContact: contactSchema,
     dstContact: contactSchema,
     targetFleet: {
@@ -37,7 +17,7 @@ const orderSchema = new Schema({
         type: String,
         enum: []
     }
-});
+}, { timestamps: true });
 
 export const Order = model('Order', orderSchema);
 
