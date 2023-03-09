@@ -1,8 +1,9 @@
 import { Schema, model } from "mongoose";
 import Joi from "joi";
 import jwt from "jsonwebtoken";
-import { emailSchema, phoneNumberValidate } from "../utils/schemas.js";
+import { emailSchema } from "../utils/schemas.js";
 import { userRoleEnums } from "../utils/enums.js";
+import { validateEmail, validateContact, validateName } from "../utils/validations.js";
 
 const userSchema = new Schema({
     email: emailSchema,
@@ -27,7 +28,7 @@ export const User = model('User', userSchema);
 
 export const validateUser = function(user) {
     const schema = Joi.object({
-        email: Joi.string().email().min(8).max(256).required(),
+        email: validateEmail(),
         password: Joi.string().min(8).max(64).required(),
     });
 
@@ -36,10 +37,10 @@ export const validateUser = function(user) {
 
 export const validateCreateUser = function(account) {
     const schema = Joi.object({
-        email: Joi.string().min(8).max(256).required(),
+        email: validateEmail(),
         password: Joi.string().min(8).required(),
-        name: Joi.string().min(5).max(64).required(),
-        contact: phoneNumberValidate(),
+        name: validateName(),
+        contact: validateContact(),
     });
 
     return schema.validate(account);

@@ -1,5 +1,4 @@
 import { Schema } from "mongoose";
-import Joi from 'joi';
 
 export const locationSchema = new Schema({
     point: {
@@ -15,10 +14,6 @@ export const locationSchema = new Schema({
     }
 }, { _id: false });
 
-export const validateLocation = function(location) {
-    return Joi.object({});
-}
-
 export const contactSchema = new Schema({
     cc: {
         type: String,
@@ -33,13 +28,6 @@ export const contactSchema = new Schema({
         required: true,
     }
 }, { _id : false });
-
-export const validateContact = function() {
-    return Joi.object({
-        cc: Joi.string().min(1).max(3).required(),
-        number: Joi.string().min(9).max(11).required()
-    });
-}
 
 export const socialMediaSchema = new Schema({
     platform: {
@@ -68,6 +56,6 @@ export const nameSchema = new Schema({
         required: true,
         unique: true,
         min: 5,
-        max: 64,
+        max: 128,
     }
 }, { _id: false });

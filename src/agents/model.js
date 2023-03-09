@@ -1,15 +1,9 @@
 import { Schema, model } from "mongoose";
-import { contactSchema, emailSchema, locationSchema, socialMediaSchema } from "../utils/schemas.js";
+import { nameSchema, contactSchema, emailSchema, locationSchema, socialMediaSchema } from "../utils/schemas.js";
 import Joi from 'joi';
 
 const agentSchema = new Schema({
-    name: {
-        type: String,
-        min: 2,
-        max: 124,
-        required: true,
-        unique: true,
-    },
+    name: nameSchema,
     email: emailSchema,
     contact: contactSchema,
     location: locationSchema,

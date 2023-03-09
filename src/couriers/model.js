@@ -1,26 +1,13 @@
 import { Schema, model } from "mongoose";
 import Joi from "joi";
-import { phoneNumberSchema, phoneNumberValidate } from "../utils/schemas.js";
+import { contactSchema, emailSchema, nameSchema } from "../utils/schemas.js";
+import { validateEmail, validateName, validateContact } from './../utils/validations.js';
 
 const courierSchema = new Schema({
-    firstName: {
-        type: String,       
-        required: true,
-        min: 2,
-        max: 124,
-    },
-    lastName: {
-        type: String,
-        required: true,
-        min: 2,
-        max: 124,
-    },
-    email: {
-        type: String,
-        unique: true,
-        required: true,
-    },
-    contact: phoneNumberSchema,
+    firstName: nameSchema,
+    lastName: nameSchema,
+    email: emailSchema,
+    contact: contactSchema,
     trips: {
         type: Number,
         required: true,
@@ -55,10 +42,10 @@ export const Courier = model('Courier', courierSchema);
 
 export const validateCreateCourier = function(courier) {
     const schema = Joi.object({
-        firstName: Joi.string().min(2).max(124).required(),
-        lastName: Joi.string().min(2).max(124).required(),
-        email: Joi.string().email().required(),
-        contact: phoneNumberValidate().required(),
+        firstName: validateName(),
+        lastName: validateName(),
+        email: validateEmail(),
+        contact: validateContact().required(),
     });
 
     return schema.validate(courier);
@@ -66,8 +53,8 @@ export const validateCreateCourier = function(courier) {
 
 export const validateUpdateCourier = function(courier) {
     const schema = Joi.object({
-        email: Joi.string().email(),
-        contact: phoneNumberValidate(),
+        email: validateEmail(),
+        contact: validateContact(),
     });
 
     return schema.validate(courier);
